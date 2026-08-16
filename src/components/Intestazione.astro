@@ -12,7 +12,7 @@ import { TIPI_NODO } from '../lib/costanti';
  */
 const attuale = Astro.url.pathname;
 
-const haSimboli = (TIPI_NODO as readonly string[]).includes('simbolo');
+const haAlgoritmi = (TIPI_NODO as readonly string[]).includes('algoritmo');
 const pagineDiagrammi = Object.keys(import.meta.glob('../pages/diagrammi/*.astro'));
 const haDiagrammi = pagineDiagrammi.some((p) => !p.endsWith('/index.astro'));
 
@@ -27,7 +27,7 @@ const esplora: VoceMenu[] = [
   { href: '/grafo', etichetta: 'Grafo' },
   { href: '/relazioni', etichetta: 'Relazioni' },
   { href: '/tempo', etichetta: 'Tempo' },
-  ...(haSimboli ? [{ href: '/simboli', etichetta: 'Simboli' }] : []),
+  ...(haAlgoritmi ? [{ href: '/algoritmi', etichetta: 'Algoritmi' }] : []),
   ...(haDiagrammi ? [{ href: '/diagrammi', etichetta: 'Diagrammi' }] : []),
 ];
 const studia: VoceMenu[] = [
@@ -54,9 +54,9 @@ const stileScheda = (attivo: boolean) =>
 <header class="border-b border-bordo bg-sfondo/90 backdrop-blur-sm sticky top-0 z-40">
   <nav aria-label="Navigazione principale" class="mx-auto max-w-6xl px-4 flex items-center gap-4 sm:gap-5 h-14">
     <a href={withBase('/')} class="group flex items-center gap-2.5 shrink-0">
-      <span class="marchio h-7 w-7 text-[0.68rem] font-bold tracking-tight" aria-hidden="true">CT</span>
+      <span class="marchio h-7 w-7 text-[0.68rem] font-bold tracking-tight" aria-hidden="true">Ca</span>
       <span class="font-semibold tracking-tight text-testo transition-colors duration-120 group-hover:text-accento max-sm:sr-only">
-        Correspondentia Theatri
+        Calculemus
       </span>
     </a>
     <ul class="flex items-stretch gap-3 sm:gap-4 text-sm min-w-0 self-stretch">

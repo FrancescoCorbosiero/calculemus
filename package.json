@@ -1,7 +1,7 @@
 {
-  "name": "correspondentia-theatri",
+  "name": "calculemus",
   "version": "0.1.0",
-  "description": "Correspondentia Theatri — atlante ipermediale dell'esoterismo occidentale",
+  "description": "Calculemus — atlante ipermediale dell'informatica",
   "type": "module",
   "private": true,
   "engines": {

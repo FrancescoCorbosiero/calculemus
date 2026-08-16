@@ -20,7 +20,7 @@
  *   `parti` dichiarate in kit/seme.json (che guidano il codegen: N_PARTI,
  *   nomi, palette) devono coincidere con le parti reali del contenuto.
  *
- * Uso:  tsx kit/estrai-seme.ts            (ri)scrive kit/esempio/seme-esoterismo.json
+ * Uso:  tsx kit/estrai-seme.ts            (ri)scrive kit/esempio/seme-informatica.json
  *       tsx kit/estrai-seme.ts --verifica  confronta senza scrivere (CI)
  */
 import { readFileSync, readdirSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
@@ -30,14 +30,14 @@ import matter from 'gray-matter';
 
 const RADICE = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SEME_PROGETTO = join(RADICE, 'kit/seme.json');
-const USCITA = join(RADICE, 'kit/esempio/seme-esoterismo.json');
+const USCITA = join(RADICE, 'kit/esempio/seme-informatica.json');
 
 /* ── sezioni di progetto: da kit/seme.json (fonte del codegen) ────────── */
 
 if (!existsSync(SEME_PROGETTO)) {
   console.error(
     '✗ kit/seme.json non esiste: è la fonte di tassonomia, progetto, valutazione e regole.\n' +
-      '  Copiare qui il seme del progetto (per la fabbrica: kit/esempio/seme-esoterismo.json).'
+      '  Copiare qui il seme del progetto (per la fabbrica: kit/esempio/seme-informatica.json).'
   );
   process.exit(1);
 }
@@ -138,7 +138,7 @@ if (partiSeme !== partiContenuto) {
 
 if (process.argv.includes('--verifica')) {
   if (!existsSync(USCITA)) {
-    console.error('✗ kit/esempio/seme-esoterismo.json non esiste: eseguire `npm run seme:estrai`');
+    console.error('✗ kit/esempio/seme-informatica.json non esiste: eseguire `npm run seme:estrai`');
     process.exit(1);
   }
   if (readFileSync(USCITA, 'utf8') !== json) {
@@ -153,6 +153,6 @@ if (process.argv.includes('--verifica')) {
   mkdirSync(dirname(USCITA), { recursive: true });
   writeFileSync(USCITA, json);
   console.log(
-    `✓ seme estratto: ${voci.length} voci, ${parti.length} parti, ${percorsi.length} percorsi, ${diagrammi.length} diagrammi → kit/esempio/seme-esoterismo.json`
+    `✓ seme estratto: ${voci.length} voci, ${parti.length} parti, ${percorsi.length} percorsi, ${diagrammi.length} diagrammi → kit/esempio/seme-informatica.json`
   );
 }

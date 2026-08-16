@@ -9,6 +9,7 @@
  */
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import { N_PARTI, NOMI_PARTE, NOMI_PARTE_BREVI } from '../src/lib/costanti';
 
 const RADICE = resolve(import.meta.dirname ?? '.', '..');
 const DIR_SORGENTE = join(RADICE, 'contenuti');
@@ -26,18 +27,32 @@ interface Capitolo {
   aH1?: string;
 }
 
+/** Slug ascii-kebab dal nome breve della parte (es. "Sistemi e reti" → "sistemi-e-reti"). */
+function slugifica(nome: string): string {
+  return nome
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
+/**
+ * Il volume segue le parti del seme: un capitolo introduttivo
+ * ("come usare questo volume", 00_intro.md) più un capitolo per parte
+ * (01_parte1.md … 0N_parteN.md), con titoli da NOMI_PARTE (generati).
+ */
 const CAPITOLI: Capitolo[] = [
-  { slug: 'nota-di-lettura', ordine: 0, titolo: 'Nota di lettura', sorgenti: ['00_front.md'] },
-  { slug: 'definizione-ed-epistemologia', ordine: 1, titolo: 'I. Definizione ed epistemologia', sorgenti: ['01_parte1.md'] },
-  { slug: 'correnti-storiche', ordine: 2, titolo: 'II. Correnti storiche', sorgenti: ['02_parte2a.md', '03_parte2b.md'] },
-  { slug: 'concetti-strutturali', ordine: 3, titolo: 'III. Concetti strutturali', sorgenti: ['04_parte3.md'] },
-  { slug: 'pratiche-e-vie', ordine: 4, titolo: 'IV. Pratiche e vie', sorgenti: ['05_parte4.md'] },
-  { slug: 'linguaggio-simbolico', ordine: 5, titolo: 'V. Linguaggio simbolico', sorgenti: ['06_parte5.md'] },
-  { slug: 'ricezioni-moderne', ordine: 6, titolo: 'VI. Ricezioni moderne', sorgenti: ['07_parte6.md'] },
-  { slug: 'cronologia', ordine: 7, titolo: 'Cronologia sinottica', sorgenti: ['08_cronologia.md'] },
-  { slug: 'glossario', ordine: 8, titolo: 'Glossario', sorgenti: ['09_glossario.md'], aH1: 'Come usare questo volume' },
-  { slug: 'appendici', ordine: 9, titolo: 'Appendici di studio', sorgenti: ['10_appendici.md'] },
-  { slug: 'come-usare-questo-volume', ordine: 10, titolo: 'Come usare questo volume', sorgenti: ['09_glossario.md'], daH1: 'Come usare questo volume' },
+  { slug: 'come-usare-questo-volume', ordine: 0, titolo: 'Come usare questo volume', sorgenti: ['00_intro.md'] },
+  ...Array.from({ length: N_PARTI }, (_, i) => {
+    const n = i + 1;
+    return {
+      slug: slugifica(NOMI_PARTE_BREVI[n] ?? `parte-${n}`),
+      ordine: n,
+      titolo: (NOMI_PARTE[n] ?? `Parte ${n}`).replace(' · ', '. '),
+      sorgenti: [`0${n}_parte${n}.md`],
+    };
+  }),
 ];
 
 /** Rimuove il frontmatter YAML se presente. */

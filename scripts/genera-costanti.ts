@@ -275,7 +275,7 @@ if (eseguitoDirettamente) {
     console.error(
       `✗ impossibile leggere ${SEME}: ${(errore as Error).message}\n` +
         '  kit/seme.json è la fonte della tassonomia: copiare qui il seme del progetto ' +
-        '(per la fabbrica, il seme di riferimento kit/esempio/seme-esoterismo.json).'
+        '(per la fabbrica, il seme di riferimento kit/esempio/seme-informatica.json).'
     );
     process.exit(1);
   }
