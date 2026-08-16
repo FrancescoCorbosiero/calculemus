@@ -1,0 +1,151 @@
+---
+import Base from '../../layouts/Base.astro';
+import { withBase } from '../../lib/percorsi-url';
+
+/**
+ * La mappa della complessità: P, NP, NP-completo, indecidibile come territori
+ * annidati, con i problemi celebri collocati. SVG tema-consapevole con
+ * alternativa testuale completa. Il confine P/NP è tratteggiato: è la
+ * congettura, non un fatto.
+ */
+
+interface Problema {
+  nome: string;
+  regione: 'P' | 'NP' | 'NPC' | 'IND';
+  x: number;
+  y: number;
+}
+
+const PROBLEMI: Problema[] = [
+  { nome: 'ordinamento', regione: 'P', x: 244, y: 262 },
+  { nome: 'cammino minimo', regione: 'P', x: 244, y: 300 },
+  { nome: 'primalità', regione: 'P', x: 244, y: 338 },
+  { nome: 'fattorizzazione*', regione: 'NP', x: 250, y: 200 },
+  { nome: 'isomorfismo di grafi*', regione: 'NP', x: 408, y: 200 },
+  { nome: 'SAT', regione: 'NPC', x: 414, y: 292 },
+  { nome: 'commesso viaggiatore', regione: 'NPC', x: 414, y: 326 },
+  { nome: 'colorazione di grafi', regione: 'NPC', x: 414, y: 360 },
+  { nome: 'problema della fermata', regione: 'IND', x: 420, y: 78 },
+  { nome: 'equivalenza di programmi', regione: 'IND', x: 120, y: 78 },
+];
+
+const LARGH = 640;
+const ALT = 470;
+---
+
+<Base
+  titolo="La mappa della complessità"
+  descrizione="P, NP, NP-completo, indecidibile: le classi di complessità come territori annidati, con i problemi celebri collocati sulla mappa."
+>
+  <div class="mx-auto max-w-4xl px-4 py-10">
+    <h1 class="font-serif text-3xl">La mappa della complessità</h1>
+    <p class="mt-2 max-w-2xl text-sm" style="color: var(--testo-tenue)">
+      La <a class="underline" href={withBase('/voce/complessita-computazionale')}>teoria della complessità</a> disegna
+      una geografia: dentro, i problemi che si risolvono in fretta; intorno, quelli che si
+      verificano in fretta ma forse non si risolvono; al confine, i più duri di tutti; fuori da
+      ogni mappa, ciò che nessun algoritmo deciderà mai. Il confine fra P e NP è tratteggiato
+      perché nessuno ha dimostrato che esista davvero: è
+      <a class="underline" href={withBase('/voce/p-contro-np')}>la domanda aperta</a> più famosa del campo.
+    </p>
+
+    <div class="mt-8 rounded-lg border border-bordo bg-rialzato p-4 overflow-x-auto">
+      <svg viewBox={`0 0 ${LARGH} ${ALT}`} role="img" aria-labelledby="titolo-svg-mdc" class="w-full min-w-[560px]">
+        <title id="titolo-svg-mdc">
+          Territori annidati: P dentro NP; una fascia di NP è la regione NP-completa; tutto sta nel
+          territorio dei problemi decidibili, e fuori, oltre un confine netto, l’indecidibile.
+          Descrizione completa sotto il diagramma.
+        </title>
+
+        {/* il mare dell'indecidibile: tutto lo sfondo */}
+        <rect x="8" y="8" width={LARGH - 16} height={ALT - 52} rx="12" fill="var(--sfondo-incassato)" stroke="var(--bordo-forte)" stroke-width="1.2" stroke-dasharray="2 5" />
+        <text x="24" y="34" font-size="12.5" font-weight="700" fill="var(--testo-tenue)">INDECIDIBILE</text>
+        <text x="24" y="52" font-size="10.5" fill="var(--testo-tenue)">nessun algoritmo risolve tutti i casi: fuori da ogni misura di costo</text>
+
+        {/* il continente dei decidibili */}
+        <rect x="60" y="112" width="520" height="300" rx="12" fill="var(--sfondo)" stroke="var(--bordo-forte)" stroke-width="1.3" />
+        <text x="78" y="138" font-size="12.5" font-weight="700" fill="var(--testo)">DECIDIBILE</text>
+        <text x="182" y="138" font-size="10.5" fill="var(--testo-tenue)">un algoritmo c’è; resta da chiedersi quanto costa</text>
+
+        {/* NP */}
+        <rect x="200" y="152" width="348" height="246" rx="12" fill="var(--sfondo-rialzato)" stroke="var(--accento)" stroke-opacity="0.75" stroke-width="1.5" />
+        <text x="216" y="174" font-size="12.5" font-weight="700" fill="var(--accento)">NP</text>
+        <text x="240" y="174" font-size="10.5" fill="var(--testo-tenue)">soluzioni verificabili in tempo polinomiale</text>
+
+        {/* P: interamente dentro NP; il confine destro tratteggiato è la congettura */}
+        <rect x="216" y="220" width="150" height="162" rx="12" fill="var(--sfondo)" stroke="var(--testo)" stroke-width="1.5" />
+        <text x="232" y="244" font-size="12.5" font-weight="700" fill="var(--testo)">P</text>
+        <line x1="366" y1="220" x2="366" y2="382" stroke="var(--accento)" stroke-width="2.2" stroke-dasharray="6 5" />
+        <text x="384" y="252" font-size="10.5" fill="var(--accento)" transform="rotate(90 384 252)">P ≟ NP</text>
+
+        {/* NP-completo: regione interna di NP, disgiunta da P */}
+        <rect x="398" y="220" width="140" height="162" rx="10" fill="none" stroke="var(--accento)" stroke-width="1.6" />
+        <text x="410" y="242" font-size="11" font-weight="700" fill="var(--accento)">NP-COMPLETO</text>
+        <text x="410" y="256" font-size="9.5" fill="var(--testo-tenue)">i più duri di NP: uno</text>
+        <text x="410" y="268" font-size="9.5" fill="var(--testo-tenue)">risolto, tutti risolti</text>
+
+        {/* problemi collocati */}
+        {
+          PROBLEMI.map((p) => (
+            <g>
+              <circle cx={p.x - 8} cy={p.y - 4} r="3.2" fill={p.regione === 'IND' ? 'var(--testo-tenue)' : p.regione === 'P' ? 'var(--testo)' : 'var(--accento)'} />
+              <text x={p.x} y={p.y} font-size="11" fill="var(--testo)">
+                {p.nome}
+              </text>
+            </g>
+          ))
+        }
+
+        <text x="24" y={ALT - 30} font-size="10.5" fill="var(--testo-tenue)">
+          * fattorizzazione e isomorfismo di grafi: in NP, ma né in P né NP-completi
+        </text>
+        <text x="24" y={ALT - 14} font-size="10.5" fill="var(--testo-tenue)">
+          per quanto se ne sa — i sospetti abitanti della terra di mezzo
+        </text>
+      </svg>
+    </div>
+
+    <section class="mt-8" aria-labelledby="alt-mdc">
+      <h2 id="alt-mdc" class="font-serif text-xl">Alternativa testuale: i territori</h2>
+      <ol class="mt-3 space-y-3 text-sm leading-relaxed max-w-2xl list-decimal ps-5">
+        <li>
+          <strong>P</strong> — i problemi risolubili in tempo polinomiale: la regione del
+          trattabile. Sulla mappa: ordinamento, cammino minimo, primalità.
+        </li>
+        <li>
+          <strong>NP</strong> — i problemi le cui soluzioni si <em>verificano</em> in tempo
+          polinomiale, anche se trovarle può sembrare richiedere una ricerca esponenziale. P sta
+          dentro NP; se l’inclusione sia propria è la domanda
+          <a class="underline" href={withBase('/voce/p-contro-np')}> P contro NP</a>, aperta dal 1971.
+          Sulla mappa, nella terra di mezzo: fattorizzazione e isomorfismo di grafi — in NP, ma né
+          in P né NP-completi per quanto se ne sa.
+        </li>
+        <li>
+          <strong>NP-completo</strong> — la fascia dei problemi più duri di NP:
+          <a class="underline" href={withBase('/voce/np-completezza')}> ridurne</a> uno qualsiasi in tempo
+          polinomiale li risolverebbe tutti. Sulla mappa: SAT (il capostipite), commesso
+          viaggiatore, colorazione di grafi.
+        </li>
+        <li>
+          <strong>Decidibile</strong> — il continente che contiene tutto quanto sopra: i problemi
+          per cui un algoritmo esiste, qualunque cosa costi.
+        </li>
+        <li>
+          <strong>Indecidibile</strong> — fuori dal continente: i problemi che nessun algoritmo
+          risolve per tutti i casi, come il
+          <a class="underline" href={withBase('/voce/problema-della-fermata')}> problema della fermata</a> e
+          l’equivalenza di programmi. Qui la domanda «quanto costa?» non si pone nemmeno: è
+          l’<a class="underline" href={withBase('/voce/indecidibilita')}>indecidibilità</a>.
+        </li>
+      </ol>
+    </section>
+
+    <p class="mt-8 text-sm max-w-2xl leading-relaxed" style="color: var(--testo-tenue)">
+      La mappa ha una conseguenza pratica che pochi confini geografici possono vantare: la
+      <a class="underline" href={withBase('/voce/crittografia')}>crittografia</a> moderna abita la
+      terra di mezzo. Che fattorizzare sia difficile non è dimostrato — è una scommessa
+      ragionata, e su quella scommessa si regge
+      <a class="underline" href={withBase('/voce/rsa')}> RSA</a>: la durezza computazionale
+      trasformata da ostacolo in fondamento.
+    </p>
+  </div>
+</Base>
