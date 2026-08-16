@@ -1,7 +1,7 @@
 ---
 titolo: "Come studiare con l'atlante"
-sommario: "Quattro modi d'uso concreti — dal ripasso rapido alla preparazione di un esame — con un'avvertenza onesta su cosa l'atlante è e cosa non è."
-data: 2026-08-13
+sommario: "Quattro modi d'uso concreti — dall'orientamento in dieci minuti allo studio sistematico col volume — con un'avvertenza onesta su che cosa l'atlante è e che cosa non è."
+data: 2026-08-16
 tag: [guida, studio]
 ---
 
@@ -9,26 +9,20 @@ L'atlante è costruito per essere studiato, non solo esplorato. Questa guida rac
 
 ## 1. Orientarsi: dieci minuti
 
-Se del campo non sapete quasi nulla, partite dai [percorsi d'autore](/percorsi): sequenze narrate di sei-dieci voci in cui il grafo evidenzia il cammino man mano che procedete. Un percorso si legge in un quarto d'ora e lascia una spina dorsale su cui tutto il resto si aggancia.
+Se del campo sapete poco, partite dai [percorsi d'autore](/percorsi): sequenze narrate di otto tappe in cui il grafo evidenzia il cammino man mano che procedete. «[Dalla logica al silicio](/percorso/dalla-logica-al-silicio)» attraversa tre secoli in un quarto d'ora e lascia una spina dorsale su cui tutto il resto si aggancia; «[Il primo computer conteso](/percorso/il-primo-computer-conteso)» insegna in otto tappe il metodo dell'intero atlante.
 
 ## 2. Il quadro cronologico: la timeline
 
-La [timeline](/tempo) colloca ogni voce datata sul suo secolo. È l'antidoto più rapido all'errore tipico del principiante: credere che "la tradizione" sia un blocco unico. Vedere che fra il [Corpus Hermeticum](/voce/corpus-hermeticum) e la sua fortuna rinascimentale corrono milleduecento anni — e che la [Società Teosofica](/voce/fondazione-della-societa-teosofica) è più vicina a noi che a [Ficino](/voce/ficino) — riordina le idee meglio di qualunque avvertenza.
+La [timeline](/tempo) colloca ogni voce datata sulla sua corsia. È l'antidoto più rapido agli errori di prospettiva del principiante: vedere che fra l'algebra di [Boole](/voce/boole) e la tesi di [Shannon](/voce/shannon) corrono ottant'anni esatti — e che [Ada Lovelace](/voce/lovelace) è più vicina a Napoleone che all'ENIAC — riordina le idee meglio di qualunque avvertenza.
 
 ## 3. Studio sistematico: il volume
 
-Per un esame o una lettura completa c'è [il volume](/leggi): le sei parti nell'ordine pensato per la lettura, capitolo per capitolo, con la progressione salvata nel browser. Ogni capitolo rimanda alle voci correlate; la combinazione lineare-più-grafo è il modo più solido di fissare la materia — prima il filo, poi la rete.
+Per un esame o una lettura completa c'è [il volume](/leggi): le sei parti nell'ordine pensato per la lettura, capitolo per capitolo, con la progressione salvata nel browser. Ogni capitolo attraversa le voci della sua parte; la combinazione lineare-più-grafo è il modo più solido di fissare la materia — prima il filo, poi la rete. Il [registro di studio](/studio) tiene i conti: copertura per parte e per peso, autovalutazioni («assimilata» / «da ripassare»), tutto in locale, senza account.
 
-## 4. Approfondire una voce: il dossier
+## 4. Interrogare il grafo
 
-Ogni voce è un dossier: sommario, corpo, datazione (con la distinzione fra **datazione reale e datazione dichiarata**, quando divergono), relazioni tipizzate con una nota che le giustifica, e **fonti in calce** — la letteratura accademica di riferimento: Yates, Faivre, Hanegraaff, Principe e gli altri. Le relazioni sono cliccabili: lo studio per grappoli (una voce, poi i suoi vicini) è il modo in cui l'atlante dà il meglio.
+Quando avete una domanda precisa, il grafo risponde meglio del sommario. Da dove viene la [crittografia a chiave pubblica](/voce/crittografia-a-chiave-pubblica)? Aprite la voce e risalite gli archi. Che cosa collega due voci lontane? [Trova un cammino](/percorsi/trova) calcola il percorso minimo e lo racconta come catena di frasi. Chi non vuole il mouse ha [le relazioni in testo](/relazioni) e l'[elenco completo](/grafo/elenco): tutto ciò che il grafo sa è leggibile riga per riga.
 
-## L'avvertenza onesta
+## L'avvertenza
 
-L'atlante è un'opera di **orientamento**: la densità è quella di un'enciclopedia concisa, non di una monografia. Tre conseguenze pratiche:
-
-- per una tesina o una tesi, usatelo come mappa e risalite sempre alle fonti citate in calce alle voci;
-- le voci descrivono dottrine e pratiche storiche **senza istruirle**: chi cerca manuali operativi è nel posto sbagliato;
-- dove la ricerca è divisa, la voce lo dice — e dove una pretesa è smentita (datazioni leggendarie, [attribuzioni infondate](/voce/pseudoepigrafia), successioni inventate), è marcata come tale sia nel testo sia nel grafo.
-
-Un ultimo consiglio pratico: la ricerca rapida (Ctrl/Cmd + K) funziona da qualunque pagina e cerca anche nel testo completo. È quasi sempre il modo più veloce di arrivare dove volevate andare.
+L'atlante è una mappa, e una mappa non è il territorio. Le voci sono profili funzionali, non trattazioni: [Turing](/voce/turing) in mille parole è un orientamento, non una biografia. Le fonti in calce a ogni voce dicono dove continuare — Hodges per Turing, Haigh per l'ENIAC, Ceruzzi per le macchine — e il confine è dichiarato: qui trovate la struttura del campo, le relazioni, le contese con le loro note; i dettagli, le dimostrazioni e le storie complete stanno nei libri che l'atlante cita e non pretende di sostituire. Usatelo per capire dove siete: per andare a fondo, uscite dalla mappa.

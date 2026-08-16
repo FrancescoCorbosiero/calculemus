@@ -1,0 +1,116 @@
+---
+import Base from '../layouts/Base.astro';
+import grafo from '../generated/graph.json';
+import type { DatiGrafo } from '../lib/tipi-grafo';
+import { withBase } from '../lib/percorsi-url';
+import { glifoTipo, glifoATratto } from '../lib/icone';
+import { ETICHETTE_TIPO_ARCO, ETICHETTE_TIPO_NODO } from '../lib/schema';
+import { ARCO_CONTENIMENTO } from '../lib/costanti';
+import type { TipoArco } from '../lib/costanti';
+
+const dati = grafo as unknown as DatiGrafo;
+const perId = new Map(dati.nodi.map((n) => [n.id, n]));
+const algoritmi = dati.nodi
+  .filter((n) => n.tipo === 'algoritmo')
+  .sort((a, b) => b.peso - a.peso || a.titolo.localeCompare(b.titolo, 'it'));
+
+// per ogni algoritmo: le sue relazioni in entrata e in uscita (senza il contenimento)
+interface Legame {
+  id: string;
+  titolo: string;
+  tipo: string;
+  relazione: string;
+  nota?: string;
+}
+const legami = new Map<string, Legame[]>();
+const aggiungi = (chiave: string, legame: Legame) => {
+  if (!legami.has(chiave)) legami.set(chiave, []);
+  legami.get(chiave)!.push(legame);
+};
+for (const arco of dati.archi) {
+  if (arco.tipo === ARCO_CONTENIMENTO) continue;
+  const da = perId.get(arco.da);
+  const a = perId.get(arco.a);
+  if (!da || !a) continue;
+  const etichetta = ETICHETTE_TIPO_ARCO[arco.tipo as TipoArco] ?? arco.tipo;
+  if (da.tipo === 'algoritmo') {
+    const legame: Legame = { id: a.id, titolo: a.titolo, tipo: ETICHETTE_TIPO_NODO[a.tipo], relazione: etichetta };
+    if (arco.nota) legame.nota = arco.nota;
+    aggiungi(da.id, legame);
+  }
+  if (a.tipo === 'algoritmo') {
+    const legame: Legame = { id: da.id, titolo: da.titolo, tipo: ETICHETTE_TIPO_NODO[da.tipo], relazione: `${etichetta} ←` };
+    if (arco.nota) legame.nota = arco.nota;
+    aggiungi(a.id, legame);
+  }
+}
+
+const annoIt = (anno: number) => (anno < 0 ? `${-anno} a.C.` : `${anno}`);
+---
+
+<Base
+  titolo="Atlante degli algoritmi"
+  descrizione="Le procedure con nome e storia propria — da Euclide a PageRank — con le relazioni che le collegano a persone, concetti e sistemi."
+>
+  <div class="mx-auto max-w-6xl px-4 py-12">
+    <h1 class="font-serif text-3xl">Atlante degli algoritmi</h1>
+    <p class="mt-2 max-w-2xl text-sm" style="color: var(--testo-tenue)">
+      {algoritmi.length} procedure con nome e storia propria, ciascuna con il sottografo delle sue
+      relazioni. Un algoritmo non è il suo codice: è un'idea con una data, un autore (spesso
+      conteso) e una discendenza.
+    </p>
+
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        algoritmi.map((algoritmo) => {
+          const relazioni = (legami.get(algoritmo.id) ?? []).sort((x, y) =>
+            x.titolo.localeCompare(y.titolo, 'it')
+          );
+          return (
+            <article class="rounded-lg border border-bordo bg-rialzato p-4 flex flex-col">
+              <h2 class="font-serif text-xl flex items-center gap-2">
+                <svg viewBox="0 0 24 24" class="size-5 shrink-0" aria-hidden="true" style={`color: var(--parte-${algoritmo.parte})`}>
+                  {glifoATratto('algoritmo') ? (
+                    <path d={glifoTipo('algoritmo')} fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+                  ) : (
+                    <path d={glifoTipo('algoritmo')} fill="currentColor" fill-rule="evenodd" />
+                  )}
+                </svg>
+                <a class="hover:text-accento underline-offset-4 hover:underline" href={withBase(`/voce/${algoritmo.id}`)}>
+                  {algoritmo.titolo}
+                </a>
+              </h2>
+              {algoritmo.periodo && (
+                <p class="mt-1 text-xs tabular-nums" style="color: var(--testo-tenue)">
+                  {annoIt(algoritmo.periodo.da)}
+                  {algoritmo.periodo.a !== algoritmo.periodo.da && ` – ${annoIt(algoritmo.periodo.a)}`}
+                </p>
+              )}
+              <p class="mt-2 text-sm leading-relaxed">{algoritmo.sommario}</p>
+              {relazioni.length > 0 && (
+                <div class="mt-3 pt-3 border-t border-bordo text-xs">
+                  <h3 class="font-semibold uppercase tracking-wide" style="color: var(--testo-tenue)">
+                    Relazioni
+                  </h3>
+                  <ul class="mt-1.5 flex flex-wrap gap-1.5">
+                    {relazioni.map((legame) => (
+                      <li>
+                        <a
+                          class="inline-block rounded-full border border-bordo px-2 py-0.5 hover:bg-incassato"
+                          href={withBase(`/voce/${legame.id}`)}
+                          title={legame.nota ? `${legame.relazione} · ${legame.nota}` : legame.relazione}
+                        >
+                          {legame.titolo}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+</Base>

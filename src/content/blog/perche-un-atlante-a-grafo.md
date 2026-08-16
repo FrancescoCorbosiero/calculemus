@@ -1,26 +1,22 @@
 ---
-titolo: "Perché un atlante a grafo"
-sommario: "L'esoterismo occidentale è un campo fatto di filiazioni — vere, presunte, inventate. Un libro le mette in fila una alla volta; un grafo le mostra tutte insieme, e obbliga a dichiararne la natura."
-data: 2026-08-15
+titolo: "Perché un atlante a grafo dell'informatica"
+sommario: "L'informatica si studia per cronologie o per manuali; ma il campo è fatto di relazioni — filiazioni, opposizioni, implementazioni. Perché la mappa delle relazioni è la porta principale di questo atlante."
+data: 2026-08-12
 tag: [metodo, progetto]
 ---
 
-C'è un motivo preciso se questo atlante ha la forma di un grafo e non di un indice alfabetico: **l'esoterismo occidentale è un campo costituito da relazioni prima ancora che da dottrine**. Ciò che chiamiamo ermetismo, cabala cristiana, rosacrocianesimo o teosofia non è una serie di sistemi chiusi, ma una catena di letture: qualcuno legge qualcun altro, lo fraintende in modo produttivo, e dichiara di continuare una tradizione che spesso ha appena inventato.
+L'informatica si racconta di solito in due modi. Il primo è la cronologia: prima Babbage, poi Turing, poi l'ENIAC, poi Internet — una processione di date che suggerisce un progresso lineare e inevitabile. Il secondo è il manuale: le strutture dati, i linguaggi, le reti, ciascuno nel suo capitolo, come se fossero nati già ordinati per argomento. Entrambi i racconti funzionano, ed entrambi mentono un po': il campo non è cresciuto né in fila né per capitoli. È cresciuto **per relazioni**.
 
-Un libro lineare può raccontarlo, ma deve scegliere un ordine — e ogni ordine è già una tesi. L'atlante conserva il volume in [modalità lineare](/leggi), con le sue sei parti; la porta principale però è la mappa, dove ogni voce è un nodo e ogni relazione un arco **tipizzato**: *influenza*, *deriva da*, *si oppone a*, *usa il simbolo*, *rilegge*, fino al tipo più importante di tutti, *attribuzione infondata*.
+## Il campo è un grafo
 
-## La relazione più preziosa è quella falsa
+Che cosa lega la tesi di laurea di [Shannon](/voce/shannon) all'algebra di [Boole](/voce/boole), scritta ottant'anni prima e senza alcuna applicazione in vista? Che cosa lega il [lambda-calcolo](/voce/lambda-calcolo) di Church — logica pura degli anni Trenta — a [Lisp](/voce/lisp), e Lisp alla programmazione funzionale di oggi? Perché per capire [Internet](/voce/internet) bisogna passare da un articolo del 1945 su una scrivania immaginaria ([As We May Think](/voce/as-we-may-think))?
 
-Se c'è una cosa che questo campo insegna, è che le genealogie inventate contano quanto quelle reali — non perché siano vere, ma perché hanno prodotto effetti. Il [Corpus Hermeticum](/voce/corpus-hermeticum) fu letto per secoli come sapienza egizia primordiale; la [datazione di Casaubon](/voce/datazione-di-casaubon) lo restituì al II-III secolo, ma la lettura precedente aveva già trasformato la cultura del Rinascimento. Un grafo che mostrasse solo le filiazioni documentate perderebbe metà della storia; uno che le mescolasse alle leggendarie mentirebbe.
+Sono domande sulle **frecce**, non sui nodi. La storia dell'informatica è fatta di influenze a distanza di decenni, di derivazioni dichiarate, di opposizioni esplicite (la [programmazione strutturata](/voce/programmazione-strutturata) nasce *contro* qualcosa), di implementazioni che trasformano un'idea di carta in una macchina. Un racconto lineare deve tagliare quasi tutte queste frecce; un manuale le nasconde dentro i confini dei capitoli. Un grafo le mostra.
 
-La soluzione dell'atlante è grafica ed epistemica insieme: **gli archi leggendari esistono, ma sono spenti di default** e dichiarati in legenda. Chi li accende sa cosa sta guardando: la storia delle pretese, non la storia dei fatti.
+Per questo in Calculemus la vista principale è [il grafo](/grafo): 170 voci — persone, concetti, macchine, linguaggi, opere, eventi, luoghi — e le relazioni tipizzate che le collegano. Ogni arco ha un tipo (*influenza*, *deriva da*, *si oppone a*, *implementa*, *formalizza*…) e, dove serve, una nota che dice perché la freccia esiste. Il grafo non è un'illustrazione del contenuto: **è** il contenuto, derivato a ogni build dal frontmatter delle voci, con la pipeline che si rifiuta di compilare se una freccia punta nel vuoto.
 
-## Cosa mostra un grafo che un libro non può mostrare
+## Senza rinunciare al filo
 
-Tre esempi concreti, verificabili in due clic:
+Un grafo da solo, però, non si studia: si vaga. Per questo l'atlante tiene entrambe le forme. C'è [il volume](/leggi), sei parti in prosa continua da leggere nell'ordine, per chi vuole il filo; ci sono i [percorsi d'autore](/percorsi), otto tappe narrate alla volta, per chi vuole un filo più corto; c'è la [timeline](/tempo) per il colpo d'occhio cronologico — l'antidoto all'idea che «i computer» siano nati tutti insieme. E ogni vista grafica ha il suo equivalente testuale, perché un atlante che si legge solo col mouse è un atlante che esclude.
 
-- **La centralità inattesa.** [Ficino](/voce/ficino) non è "un capitolo" fra gli altri: nel grafo è uno snodo da cui dipende gran parte della trasmissione rinascimentale — la sua posizione topologica dice più di molte pagine.
-- **Le opposizioni strutturanti.** Le polemiche (gli archi *si oppone a*) disegnano il campo quanto le filiazioni: senza gli avversari, metà delle correnti non avrebbe preso la forma che ha.
-- **I cammini.** Fra due voci qualsiasi si può [cercare un cammino](/percorsi/trova): la catena di passaggi che collega, poniamo, [Alessandria](/voce/alessandria) a [Yeats](/voce/yeats) è essa stessa una lezione di storia della trasmissione.
-
-Il grafo non sostituisce la lettura: la orienta. Per questo ogni voce resta un piccolo dossier con sommario, corpo, datazioni e fonti — e per questo l'atlante ha anche [percorsi d'autore](/percorsi), sequenze narrate per chi preferisce essere accompagnato. La mappa è la porta; le stanze restano da leggere.
+La scommessa è che le due modalità si rinforzino: prima il filo, poi la rete. Si legge il capitolo sui fondamenti, e poi si apre il grafo per scoprire che la [macchina di Turing](/voce/macchina-di-turing) ha frecce che arrivano fino all'[architettura di von Neumann](/voce/architettura-di-von-neumann) e oltre. L'ordine di lettura è un servizio; la struttura reale del campo è la rete. Questo atlante prova a non sacrificare nessuna delle due.

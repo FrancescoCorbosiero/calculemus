@@ -312,14 +312,14 @@ export function validaCollegamenti(voci: VoceLetta[]): void {
   for (const v of voci) {
     for (const confronto of v.corpo.matchAll(schema)) {
       const href = confronto[1]!;
-      if (href.startsWith('/correspondentia-theatri')) {
+      if (href.startsWith('/calculemus')) {
         problemi.push(`${v.file}: link con base hardcoded "${href}" (usare percorsi radice)`);
         continue;
       }
       const voce = href.match(/^\/voce\/([a-z0-9-]+)\/?$/);
       if (voce) {
         if (!ids.has(voce[1]!)) problemi.push(`${v.file}: link a voce inesistente "${voce[1]}"`);
-      } else if (!/^\/(grafo|cosmo|tempo|voce|percorso|percorsi|simboli|diagrammi|leggi|cerca)(\/|$)/.test(href)) {
+      } else if (!/^\/(grafo|cosmo|tempo|voce|percorso|percorsi|algoritmi|diagrammi|leggi|cerca)(\/|$)/.test(href)) {
         problemi.push(`${v.file}: link interno non riconosciuto "${href}"`);
       }
     }

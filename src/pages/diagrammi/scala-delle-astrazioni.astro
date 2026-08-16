@@ -1,0 +1,187 @@
+---
+import Base from '../../layouts/Base.astro';
+import { withBase } from '../../lib/percorsi-url';
+
+/**
+ * La scala delle astrazioni: dal transistor all'applicazione, ogni strato
+ * nasconde il precedente. SVG a strati impilati, tema-consapevole, con
+ * alternativa testuale completa.
+ */
+
+interface Strato {
+  nome: string;
+  offre: string;
+  nasconde: string;
+  voci: { id: string; titolo: string }[];
+}
+
+/** Dal basso (fisica) all'alto (uso): l'ordine dell'array è dall'alto in giù. */
+const STRATI: Strato[] = [
+  {
+    nome: 'Applicazione',
+    offre: 'un gesto: cercare, scrivere, ascoltare',
+    nasconde: 'tutto il resto della scala',
+    voci: [{ id: 'interfaccia-grafica', titolo: 'interfaccia grafica' }],
+  },
+  {
+    nome: 'Linguaggio ad alto livello',
+    offre: 'variabili, funzioni, strutture dati',
+    nasconde: 'registri, indirizzi, istruzioni macchina',
+    voci: [
+      { id: 'linguaggio-di-programmazione', titolo: 'linguaggio di programmazione' },
+      { id: 'compilatore', titolo: 'compilatore' },
+    ],
+  },
+  {
+    nome: 'Sistema operativo',
+    offre: 'processi, file, memoria virtuale',
+    nasconde: 'l’hardware conteso fra i programmi',
+    voci: [
+      { id: 'sistema-operativo', titolo: 'sistema operativo' },
+      { id: 'tempo-condiviso', titolo: 'time-sharing' },
+    ],
+  },
+  {
+    nome: 'Architettura (ISA)',
+    offre: 'il repertorio di istruzioni della macchina',
+    nasconde: 'come i circuiti le eseguono davvero',
+    voci: [
+      { id: 'architettura-di-von-neumann', titolo: 'architettura di von Neumann' },
+      { id: 'programma-memorizzato', titolo: 'programma memorizzato' },
+    ],
+  },
+  {
+    nome: 'Circuiti logici',
+    offre: 'somme, confronti, memoria: l’aritmetica cablata',
+    nasconde: 'le singole porte che li compongono',
+    voci: [{ id: 'circuito-integrato', titolo: 'circuito integrato' }],
+  },
+  {
+    nome: 'Porta logica',
+    offre: 'AND, OR, NOT: l’algebra di Boole in hardware',
+    nasconde: 'tensioni e correnti: resta solo vero/falso',
+    voci: [{ id: 'logica-booleana', titolo: 'logica booleana' }],
+  },
+  {
+    nome: 'Transistor',
+    offre: 'un interruttore comandato da un segnale',
+    nasconde: 'la fisica dei semiconduttori',
+    voci: [{ id: 'transistor', titolo: 'transistor' }],
+  },
+];
+
+const LARGH = 640;
+const RIGA = 64;
+const ALT = STRATI.length * RIGA + 44;
+---
+
+<Base
+  titolo="La scala delle astrazioni"
+  descrizione="Dal transistor alla porta logica, dall'architettura al sistema operativo, dal linguaggio all'applicazione: ogni strato nasconde il precedente."
+>
+  <div class="mx-auto max-w-4xl px-4 py-10">
+    <h1 class="font-serif text-3xl">La scala delle astrazioni</h1>
+    <p class="mt-2 max-w-2xl text-sm" style="color: var(--testo-tenue)">
+      L’informatica regge miliardi di componenti con un solo gesto intellettuale, ripetuto:
+      l’<a class="underline" href={withBase('/voce/astrazione')}>astrazione</a>. Ogni strato offre a
+      chi sta sopra un’interfaccia semplice e nasconde la complessità di chi sta sotto: chi scrive
+      in un linguaggio non pensa ai registri, chi disegna una porta logica non pensa agli
+      elettroni. La scala qui sotto va letta dal basso: dalla fisica al gesto quotidiano.
+    </p>
+
+    <div class="mt-8 rounded-lg border border-bordo bg-rialzato p-4 overflow-x-auto">
+      <svg viewBox={`0 0 ${LARGH} ${ALT}`} role="img" aria-labelledby="titolo-svg-sda" class="w-full min-w-[560px]">
+        <title id="titolo-svg-sda">
+          Sette strati impilati, dal transistor in basso all’applicazione in alto, con una freccia
+          che sale. Descrizione completa sotto il diagramma.
+        </title>
+        {
+          STRATI.map((strato, i) => {
+            const y = 16 + i * RIGA;
+            const rientro = (STRATI.length - 1 - i) * 14;
+            return (
+              <g>
+                <rect
+                  x={40 + rientro}
+                  y={y}
+                  width={LARGH - 200 - rientro * 2}
+                  height={RIGA - 12}
+                  rx="8"
+                  fill="var(--sfondo)"
+                  stroke="var(--bordo-forte)"
+                  stroke-width="1.3"
+                />
+                <text x={58 + rientro} y={y + 22} font-size="13.5" font-weight="650" fill="var(--testo)">
+                  {strato.nome}
+                </text>
+                <text x={58 + rientro} y={y + 40} font-size="11" fill="var(--testo-tenue)">
+                  offre: {strato.offre}
+                </text>
+                {i < STRATI.length - 1 && (
+                  <line
+                    x1={LARGH / 2 - 80}
+                    y1={y + RIGA - 12}
+                    x2={LARGH / 2 - 80}
+                    y2={y + RIGA}
+                    stroke="var(--bordo-forte)"
+                    stroke-width="1.2"
+                  />
+                )}
+              </g>
+            );
+          })
+        }
+        {/* freccia dell'astrazione, dal basso verso l'alto */}
+        <line x1={LARGH - 120} y1={ALT - 40} x2={LARGH - 120} y2={34} stroke="var(--accento)" stroke-width="1.6" />
+        <path d={`M ${LARGH - 120} 22 L ${LARGH - 126} 36 L ${LARGH - 114} 36 Z`} fill="var(--accento)" />
+        <text
+          x={LARGH - 104}
+          y={ALT / 2}
+          font-size="11.5"
+          fill="var(--accento)"
+          transform={`rotate(-90 ${LARGH - 104} ${ALT / 2})`}
+          text-anchor="middle"
+        >
+          ogni strato nasconde il precedente
+        </text>
+        <text x={40} y={ALT - 8} font-size="11" fill="var(--testo-tenue)">
+          si legge dal basso: dalla fisica dei semiconduttori al gesto dell’utente
+        </text>
+      </svg>
+    </div>
+
+    <section class="mt-8" aria-labelledby="alt-sda">
+      <h2 id="alt-sda" class="font-serif text-xl">Alternativa testuale: i sette strati</h2>
+      <p class="mt-1 text-sm max-w-2xl" style="color: var(--testo-tenue)">
+        Dal basso verso l’alto. Per ogni strato: che cosa offre a chi sta sopra, che cosa nasconde,
+        e le voci dell’atlante che lo raccontano.
+      </p>
+      <ol class="mt-3 space-y-3 text-sm leading-relaxed max-w-2xl list-decimal ps-5">
+        {
+          [...STRATI].reverse().map((strato) => (
+            <li>
+              <strong>{strato.nome}</strong> — offre: {strato.offre}; nasconde: {strato.nasconde}.
+              Voci:{' '}
+              {strato.voci.map((voce, i) => (
+                <>
+                  {i > 0 && ' · '}
+                  <a class="underline" href={withBase(`/voce/${voce.id}`)}>
+                    {voce.titolo}
+                  </a>
+                </>
+              ))}
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <p class="mt-8 text-sm max-w-2xl leading-relaxed" style="color: var(--testo-tenue)">
+      La scala ha un prezzo, e il campo lo conosce: ogni strato è anche un luogo dove smettere di
+      capire. Le astrazioni «perdono» — quando le prestazioni crollano o un guasto risale gli
+      strati, qualcuno deve riaprire le scatole chiuse. Per questo l’atlante racconta la scala
+      come una conquista storica, strato per strato, e non come un dato di natura: ognuna di
+      queste interfacce è stata inventata, discussa e pagata cara.
+    </p>
+  </div>
+</Base>

@@ -4,7 +4,7 @@ import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 
 // Deploy previsto: GitHub Pages del repository (project page).
-// Il sito vive quindi sotto /grafy/: ogni link interno
+// Il sito vive quindi sotto /calculemus/: ogni link interno
 // passa da withBase() (src/lib/percorsi-url.ts), che usa import.meta.env.BASE_URL.
 const BASE = '/calculemus';
 

@@ -16,7 +16,7 @@ const datati = grafo.nodi.filter((n) => 'periodo' in n && n.periodo).length;
     <p class="mt-2 max-w-2xl text-sm" style="color: var(--testo-tenue)">
       {datati} voci datate su cinque corsie. Selezionando un intervallo puoi riaprire il
       <a class="underline text-accento" href={withBase('/grafo')}>grafo</a> con lo stesso filtro
-      temporale. Le voci senza data (concetti, simboli, pratiche) sono
+      temporale. Le voci senza data sono
       nell’<a class="underline text-accento" href={withBase('/grafo/elenco')}>elenco completo</a>.
     </p>
     <div class="mt-6">

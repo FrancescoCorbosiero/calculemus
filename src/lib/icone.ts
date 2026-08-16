@@ -14,14 +14,16 @@ import type { TipoNodo } from './costanti';
 export const GLIFI_TIPO: Record<string, string> = {
   // rombo: le macro-aree (le parti del volume)
   parte: 'M12 3 L21 12 L12 21 L3 12 Z',
-  // onda: una corrente
-  corrente: 'M3 9 Q7.5 4.5 12 9 T21 9 M3 15 Q7.5 10.5 12 15 T21 15',
+  // ventaglio di raggi: un'area di ricerca che si apre
+  area: 'M12 20 L5 6 M12 20 L12 4 M12 20 L19 6',
   // cerchio con punto: un concetto
   concetto: 'M12 4 A8 8 0 1 0 12.01 4 Z M12 10.5 A1.5 1.5 0 1 0 12.01 10.5 Z',
-  // mano/strumento stilizzato: triangolo con base, una pratica
-  pratica: 'M12 4 L20 18 L4 18 Z',
-  // stella a quattro punte: un simbolo
-  simbolo: 'M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z',
+  // gradini discendenti: i passi di una procedura
+  algoritmo: 'M4 6 L10 6 L10 12 L16 12 L16 18 L22 18',
+  // parentesi angolari: un linguaggio
+  linguaggio: 'M9 6 L3 12 L9 18 M15 6 L21 12 L15 18',
+  // chip con i piedini: un sistema
+  sistema: 'M7 7 H17 V17 H7 Z M12 3 V7 M12 17 V21 M3 12 H7 M17 12 H21',
   // busto: una persona
   persona: 'M12 4 A4 4 0 1 0 12.01 4 Z M4 20 Q4 13 12 13 Q20 13 20 20 Z',
   // libro aperto: un'opera
@@ -36,7 +38,7 @@ export const GLIFI_TIPO: Record<string, string> = {
 export const GLIFO_GENERICO = 'M12 4 A8 8 0 1 0 12.01 4 Z M12 10.5 A1.5 1.5 0 1 0 12.01 10.5 Z';
 
 /** Glifi resi a tratto (stroke) invece che a riempimento. */
-const GLIFI_A_TRATTO = new Set(['corrente']);
+const GLIFI_A_TRATTO = new Set(['area', 'algoritmo', 'linguaggio', 'sistema']);
 
 /** Il path del glifo per il tipo, con ripiego sul glifo generico. */
 export function glifoTipo(tipo: TipoNodo | string): string {
