@@ -9,7 +9,7 @@ import { expect, test } from '@playwright/test';
  */
 
 test('consultazione, autovalutazione e riepilogo dei progressi', async ({ page }) => {
-  await page.goto('voce/ficino');
+  await page.goto('voce/turing');
   const studio = page.getByRole('region', { name: /studio di questa voce/i });
   await expect(studio.getByText(/Prima consultazione/)).toBeVisible();
 
@@ -27,13 +27,13 @@ test('lo studio fatto in un’altra tab compare dal vivo nel registro', async ({
   await expect(tabRegistro.getByText(/0 voci consultate su/)).toBeVisible();
 
   const tabVoce = await context.newPage();
-  await tabVoce.goto('voce/agrippa');
+  await tabVoce.goto('voce/hopper');
   await tabVoce.getByRole('button', { name: /Da ripassare/ }).click();
 
   // nessun ricaricamento: l'evento storage attraversa le tab
   await expect(tabRegistro.getByText(/1 voci consultate su/)).toBeVisible();
   await expect(
-    tabRegistro.getByRole('heading', { name: /Da ripassare/ }).locator('..').getByRole('link', { name: /Agrippa/ })
+    tabRegistro.getByRole('heading', { name: /Da ripassare/ }).locator('..').getByRole('link', { name: /Hopper/ })
   ).toBeVisible();
 });
 

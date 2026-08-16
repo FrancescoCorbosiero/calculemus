@@ -9,7 +9,7 @@ import { expect, test } from '@playwright/test';
 
 test('1 · dalla home al grafo, dal grafo alla voce', async ({ page }) => {
   await page.goto('.');
-  await expect(page).toHaveTitle(/Correspondentia Theatri/);
+  await expect(page).toHaveTitle(/Calculemus/);
 
   // la porta principale
   await page.getByRole('link', { name: /Esplora il grafo/ }).click();
@@ -20,13 +20,13 @@ test('1 · dalla home al grafo, dal grafo alla voce', async ({ page }) => {
   await expect(page.getByRole('link', { name: /elenco delle voci/i }).first()).toBeVisible();
 
   // ricerca interna con zoom-to-node → pannello → voce completa
-  await page.getByLabel('Cerca nel grafo').fill('Casaubon');
+  await page.getByLabel('Cerca nel grafo').fill('Lovelace');
   await page.getByRole('listbox', { name: 'Risultati della ricerca' }).getByRole('button').first().click();
   const pannello = page.getByRole('complementary', { name: /Dettagli della voce/ });
   await expect(pannello).toBeVisible();
   await pannello.getByRole('link', { name: /Apri la voce completa/ }).click();
-  await expect(page).toHaveURL(/\/voce\/datazione-di-casaubon/);
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Casaubon');
+  await expect(page).toHaveURL(/\/voce\/lovelace/);
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Lovelace');
 });
 
 test('2 · ricerca rapida globale e dossier della voce', async ({ page }) => {
@@ -38,11 +38,11 @@ test('2 · ricerca rapida globale e dossier della voce', async ({ page }) => {
     await expect(dialogo).toBeVisible({ timeout: 700 });
   }).toPass({ timeout: 15_000 });
 
-  await dialogo.getByRole('combobox').fill('ficino');
+  await dialogo.getByRole('combobox').fill('wiener');
   await expect(dialogo.getByRole('option').first()).toBeVisible({ timeout: 15_000 });
   await page.keyboard.press('Enter');
 
-  await expect(page).toHaveURL(/\/voce\/ficino/);
+  await expect(page).toHaveURL(/\/voce\/wiener/);
   // il dossier: relazioni raggruppate, fonti, voci vicine, stato nel grafo
   await expect(page.getByRole('heading', { name: 'Relazioni' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Voci vicine' })).toBeVisible();
@@ -59,7 +59,7 @@ test('3 · fallback accessibile: elenco da tastiera fino alla voce', async ({ pa
   // filtro compilato da tastiera
   const filtro = page.getByLabel('Filtra per testo');
   await filtro.click();
-  await page.keyboard.type('agrippa');
+  await page.keyboard.type('hopper');
   await expect(page.locator('#conteggio-elenco')).toContainText(/voci mostrate/);
 
   // dal filtro alla prima riga risultato, solo con la tastiera
@@ -67,10 +67,10 @@ test('3 · fallback accessibile: elenco da tastiera fino alla voce', async ({ pa
     .locator('#tabella-elenco tbody tr:not([hidden])')
     .first()
     .getByRole('link');
-  await expect(collegamento).toContainText('Agrippa');
+  await expect(collegamento).toContainText('Hopper');
   await collegamento.focus();
   await page.keyboard.press('Enter');
-  await expect(page).toHaveURL(/\/voce\/agrippa/);
+  await expect(page).toHaveURL(/\/voce\/hopper/);
 
   // requisiti trasversali sulla pagina voce
   await expect(page.locator('html')).toHaveAttribute('lang', 'it');
@@ -90,7 +90,7 @@ test('le relazioni in forma testuale: filtro e salto al dossier', async ({ page 
   await expect(page.getByRole('heading', { level: 1 })).toContainText('relazioni');
 
   // filtro progressivo: restringe alle voci che citano Ficino
-  await page.getByLabel('Filtra per testo').fill('ficino');
+  await page.getByLabel('Filtra per testo').fill('turing');
   await expect(page.getByRole('status').filter({ hasText: 'voci mostrate' })).not.toHaveText(
     /^0 voci/
   );
@@ -104,10 +104,10 @@ test('le relazioni in forma testuale: filtro e salto al dossier', async ({ page 
   // dalla lista al dossier
   await page.goto('relazioni');
   await page
-    .locator('article[data-testo]', { hasText: 'Marsilio Ficino' })
+    .locator('article[data-testo]', { hasText: 'Alan Turing' })
     .first()
-    .getByRole('link', { name: 'Marsilio Ficino' })
+    .getByRole('link', { name: 'Alan Turing' })
     .click();
-  await expect(page).toHaveURL(/\/voce\/ficino/);
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Ficino');
+  await expect(page).toHaveURL(/\/voce\/turing/);
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Turing');
 });
